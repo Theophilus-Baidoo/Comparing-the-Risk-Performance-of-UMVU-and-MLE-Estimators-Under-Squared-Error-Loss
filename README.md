@@ -10,15 +10,11 @@ This project compares the **UMVU (Uniformly Minimum Variance Unbiased)** estimat
 
 ### ✅ UMVU Estimator (Unbiased)
 The unbiased and minimum variance estimator among all unbiased estimators:
-\[
-\delta^*(X) = \frac{X(n - X)}{n(n - 1)}
-\]
+δ*(X) = [X(n - X)] / [n(n - 1)]
 
 ### ✅ MLE-based Estimator (Biased)
 Derived from plugging the MLE \(\hat{\theta} = \frac{X}{n}\) into \(\theta(1 - \theta)\):
-\[
-\delta(X) = \frac{X}{n^2}(n - X)
-\]
+δ(X) = [X(n - X)] / n²
 
 The MLE is biased for finite samples but often has lower variance, which can lead to better overall performance in terms of risk.
 
