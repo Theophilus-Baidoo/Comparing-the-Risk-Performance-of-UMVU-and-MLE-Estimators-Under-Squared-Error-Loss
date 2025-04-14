@@ -2,7 +2,7 @@
 
 # 📊 Risk Comparison: UMVU vs MLE Estimators for θ(1 - θ)
 
-This project compares the **UMVU (Uniformly Minimum Variance Unbiased)** estimator and the **MLE-based (Maximum Likelihood Estimator)** for estimating the quantity \(\theta(1 - \theta)\), where \(X \sim \text{Binomial}(n, \theta)\). We explore how each estimator performs in terms of **risk** (mean squared error) under varying values of \(\theta\) and sample size \(n\).
+This project compares the **UMVU (Uniformly Minimum Variance Unbiased)** estimator and the **MLE-based (Maximum Likelihood Estimator)** for estimating the quantity θ(1 - θ), where X follws Bin(n, θ). We explore how each estimator performs in terms of **risk** (mean squared error) under varying values of \(\theta\) and sample size \(n\).
 
 ---
 
@@ -13,7 +13,6 @@ The unbiased and minimum variance estimator among all unbiased estimators:
 δ*(X) = [X(n - X)] / [n(n - 1)]
 
 ### ✅ MLE-based Estimator (Biased)
-Derived from plugging the MLE \(\hat{\theta} = \frac{X}{n}\) into \(\theta(1 - \theta)\):
 δ(X) = [X(n - X)] / n²
 
 The MLE is biased for finite samples but often has lower variance, which can lead to better overall performance in terms of risk.
@@ -36,8 +35,8 @@ The MLE is biased for finite samples but often has lower variance, which can lea
 ## 📈 Key Findings
 
 - **MLE outperforms UMVU** at most \(\theta\) values when sample size is small
-- **UMVU only performs better near \(\theta = 0.5\)** and becomes more competitive as \(n\) increases
-- The **risk ratio plots** show that the UMVU estimator has lower risk than MLE only in the central region of \(\theta\), never across the full range
+- **UMVU only performs better near \(\theta = 0.5\)** and becomes more competitive as n increases
+- The **risk ratio plots** show that the UMVU estimator has lower risk than MLE only in the central region of θ, never across the full range
 
 ---
 
