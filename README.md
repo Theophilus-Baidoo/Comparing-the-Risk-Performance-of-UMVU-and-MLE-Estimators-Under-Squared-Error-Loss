@@ -23,11 +23,11 @@ The MLE is biased for finite samples but often has lower variance, which can lea
 ## 🔍 What This Project Does
 
 - Computes the **risk** (mean squared error) of each estimator for:
-  - \(\theta \in \{0.05, 0.10, \dots, 0.95\}\)
-  - \(n \in \{5, 15, 30, 45\}\)
+  -  θ = {0.05, 0.10, ...., 0.95}
+  - n = {5, 15, 30, 45}
 - Compares risks across estimators using:
   - Direct risk plots
-  - Risk ratio plots \(\left(\frac{R(\delta^*)}{R(\text{MLE})}\right)\)
+  - Risk ratio plots Risk Ratio:  [ R(δ*) ] / [ R(MLE) ]
   - A summary comparison table
 - Shows how estimator performance changes as sample size increases
 
