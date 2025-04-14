@@ -1,0 +1,130 @@
+---
+title: "Comparing the Risk Performance of UMVU and MLE Estimators Under Squared Error Loss"
+author: "Theophilus G. Baidoo"
+date: "2025-04-14"
+output: pdf_document
+---
+
+```{r}
+delta_star <- function(x, n) {
+  x * (n - x) / (n * (n - 1))
+}
+
+delta_mle <- function(x, n) {
+  (x / n^2) * (n - x)
+}
+
+compute_risk <- function(estimator, n, theta) {
+  x_vals <- 0:n
+  probs <- dbinom(x_vals, n, theta)
+  true_val <- theta * (1 - theta)
+  est_vals <- sapply(x_vals, estimator, n = n)
+  sum(probs * (est_vals - true_val)^2)
+}
+
+theta_vals <- seq(0.05, 0.95, by = 0.05)
+n_vals <- c(5, 15, 30, 45)
+results <- data.frame()
+
+for (n in n_vals) {
+  for (theta in theta_vals) {
+    risk_star <- compute_risk(delta_star, n, theta)
+    risk_mle <- compute_risk(delta_mle, n, theta)
+    results <- rbind(results, data.frame(
+      n = n,
+      theta = theta,
+      UMVU = risk_star,
+      MLE = risk_mle
+    ))
+  }
+}
+
+# ==== Comparison Table ====
+results$UMVU_Better <- results$UMVU <= results$MLE
+
+library(dplyr)
+comparison_table <- results %>%
+  group_by(n) %>%
+  summarize(
+    Always_Better = all(UMVU_Better),
+    Num_Theta_Better = sum(UMVU_Better),
+    Total_Theta = n(),
+    Percent_Better = round(Num_Theta_Better / Total_Theta * 100, 1),
+    .groups = 'drop'
+  )
+
+library(knitr)
+kable(comparison_table, caption = "Comparison Table: UMVU vs MLE Risk")
+```
+
+
+```{r}
+# Plot per n ====
+library(ggplot2)
+library(reshape2)
+
+results_melt <- melt(results[, c("n", "theta", "UMVU", "MLE")],
+                     id.vars = c("n", "theta"),
+                     variable.name = "Estimator", value.name = "Risk")
+
+results_melt$Estimator <- factor(results_melt$Estimator,
+                                 levels = c("UMVU", "MLE"),
+                                 labels = c("UMVU Estimator", "MLE-based Estimator"))
+
+
+for (n_val in n_vals) {
+  plot_data <- subset(results_melt, n == n_val)
+  
+  p <- ggplot(plot_data, aes(x = theta, y = Risk, color = Estimator, linetype = Estimator)) +
+    geom_line(size = 1.2) +
+    labs(
+      title = paste("Risk Comparison for n =", n_val),
+      x = expression(theta),
+      y = "Risk"
+    ) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+      axis.title = element_text(size = 14),
+      axis.text = element_text(size = 12),
+      legend.title = element_blank(),
+      legend.position = "bottom",
+      legend.text = element_text(size = 12)
+    ) +
+    scale_color_manual(values = c("UMVU Estimator" = "red", "MLE-based Estimator" = "blue")) +
+    scale_linetype_manual(values = c("UMVU Estimator" = "solid", "MLE-based Estimator" = "dashed"))
+  
+  print(p)
+}
+```
+```{r}
+# === Risk Ratio ===
+results$Risk_Ratio <- results$UMVU / results$MLE
+
+# Load ggplot2
+library(ggplot2)
+
+# Plot ratio for each n
+for (n_val in unique(results$n)) {
+  plot_data <- subset(results, n == n_val)
+  
+  ggplot(plot_data, aes(x = theta, y = Risk_Ratio)) +
+    geom_line(color = "darkgreen", size = 1.2) +
+    geom_hline(yintercept = 1, linetype = "dashed", color = "red", size = 0.8) +
+    theme_minimal() +
+    labs(
+      title = paste("Risk Ratio (UMVU / MLE) for n =", n_val),
+      x = expression(theta),
+      y = "Risk Ratio"
+    ) +
+    theme(
+      plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+      axis.title = element_text(size = 14),
+      axis.text = element_text(size = 12)
+    ) -> p
+  
+  print(p)
+}
+
+```
+
