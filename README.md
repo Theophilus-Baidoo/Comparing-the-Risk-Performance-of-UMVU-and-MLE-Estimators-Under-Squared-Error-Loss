@@ -2,7 +2,7 @@
 
 # 📊 Risk Comparison: UMVU vs MLE Estimators for θ(1 - θ)
 
-This project compares the **UMVU (Uniformly Minimum Variance Unbiased)** estimator and the **MLE-based (Maximum Likelihood Estimator)** for estimating the quantity θ(1 - θ), where X follws Bin(n, θ). We explore how each estimator performs in terms of **risk** (mean squared error) under varying values of \(\theta\) and sample size \(n\).
+We compare the **UMVU (Uniformly Minimum Variance Unbiased)** estimator and the **MLE-based (Maximum Likelihood Estimator)** for estimating the quantity θ(1 - θ), where X follws Bin(n, θ). We explore how each estimator performs in terms of **risk** (mean squared error) under varying values of \(\theta\) and sample size \(n\).
 
 ---
 
