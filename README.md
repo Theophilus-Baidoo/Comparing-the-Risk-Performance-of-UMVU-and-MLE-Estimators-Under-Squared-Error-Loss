@@ -18,7 +18,7 @@ The unbiased and minimum variance estimator among all unbiased estimators:
 
 ---
 
-## 🔍 What This Project Does
+## 🔍 Steps
 
 - Computes the **risk** (mean squared error) of each estimator for:
   -  θ = {0.05, 0.10, ...., 0.95}
