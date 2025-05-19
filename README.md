@@ -15,7 +15,6 @@ The unbiased and minimum variance estimator among all unbiased estimators:
 ### ✅ MLE-based Estimator (Biased)
 δ(X) = [X(n - X)] / n²
 
-The MLE is biased for finite samples but often has lower variance, which can lead to better overall performance in terms of risk.
 
 ---
 
